@@ -23,7 +23,7 @@ int main() {
                     it = input.begin();
                     for (int k=0; k<input.size()-1; k++) {
                         it++;
-                        if (input[0]<x and x<input[k+1]) {
+                        if (input[k]<x and x<input[k+1]) {
                             input.insert(it, x);
                             break;
                         }
@@ -32,8 +32,7 @@ int main() {
                 }
             }
         }
-        for (int i=0; i<input.size(); i++) cout << input[i] << ' ';
-        cout << endl;
+        for (int i=0; i<input.size(); i++) cout << input[i] << endl;
     }
     return 0;
 }
