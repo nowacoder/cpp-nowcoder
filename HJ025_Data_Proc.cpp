@@ -5,7 +5,8 @@ using namespace std;
 int get_len(long l) {
     int len = 1;
     long mask = 10;
-    while (mask<l) {
+    // cases of l: 10, 100, etc.
+    while (mask<=l) {
         mask *= 10;
         len++;
     }
@@ -57,34 +58,37 @@ vector<long> sort(long R[], int n_R) {
 }
 
 int main() {
-    int n_I; cin >> n_I;
-    long I[n_I];
-    for (int i=0; i<n_I; i++) cin >> I[i];
-    int n_R; cin >> n_R;
-    long R[n_R];
-    for (int i=0; i<n_R; i++) cin >> R[i];
-    
-    vector<long> R_sorted = sort(R, n_R);
-    n_R = R_sorted.size();
-    
-    vector<vector<int>> rst_all;
-    for (long r : R_sorted) rst_all.push_back(proc(r, I, n_I));
-    
-    int rst_len = 0;
-    for (auto rst: rst_all) {
-        if (rst.size()>0) rst_len += (rst.size()+1)*2;
+    // it's possible to have multiple test cases
+    for (int n_I; cin >> n_I;) {
+        long I[n_I];
+        for (int i=0; i<n_I; i++) cin >> I[i];
+        int n_R; cin >> n_R;
+        long R[n_R];
+
+        for (int i=0; i<n_R; i++) cin >> R[i];
+
+        vector<long> R_sorted = sort(R, n_R);
+        n_R = R_sorted.size();
+
+        vector<vector<int>> rst_all;
+        for (long r : R_sorted) rst_all.push_back(proc(r, I, n_I));
+
+        int rst_len = 0;
+        for (auto rst: rst_all) {
+            if (rst.size()>0) rst_len += (rst.size()+1)*2;
+        }
+
+        cout << rst_len;
+        for (int i=0; i<n_R; i++) {
+            auto rst = rst_all[i];
+            if (rst.size()>0) {
+                cout << ' ' << R_sorted[i] << ' ' << rst.size();
+            }
+            for (int j: rst) {
+                cout << ' ' << j << ' ' << I[j];
+            }
+        } cout << endl;
     }
-    
-    cout << rst_len;
-    for (int i=0; i<n_R; i++) {
-        auto rst = rst_all[i];
-        if (rst.size()>0) {
-            cout << ' ' << R_sorted[i] << ' ' << rst.size();
-        }
-        for (int j: rst) {
-            cout << ' ' << j << ' ' << I[j];
-        }
-    } //cout << endl;
     
     return 0;
 }
