@@ -4,7 +4,9 @@
 using namespace std;
 
 int main() {
-    for (string line; getline(cin, line);) {
+    string line;
+    // for (string line; getline(cin, line);) {
+    while (cin>>line) {
         if (line.length()==0) continue;
         else {
             int rows = line.length()/8+(line.length()%8!=0);
